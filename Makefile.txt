@@ -1,0 +1,8 @@
+.SECONDARY
+CC = g++
+PN = simulate
+
+
+$(PN) 
+$(CC) -o $(PN) $^
+%
