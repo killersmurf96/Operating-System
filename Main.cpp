@@ -5,20 +5,23 @@
 #include <queue>
 #include <vector>
 
-int time = 0;
-int time2 = 0;
 using namespace std;
+
+int time = 0;
+int counter = 0;
+int totalDuration = 0;
+
 map<int, Job> jobsTable;
 queue<Job> FIFOQueue;
 deque<Job> SJFQueue;
-vector<Job> SJFvec;
+deque<Job> RRQueue;
+//vector<Job> SJFvec;
 
 void testInput();
 void FIFO();
 void SJF();
 void STCF();
-void RR();
-void RR2();
+void RR(int stepCount);
 bool SJFComparator(Job a, Job b);
 bool STCFComprator(Job x, Job y);
 
@@ -30,6 +33,7 @@ int main()
 	
 	cout << "FIFO" << endl;
 	
+	cout << "time:" << "\tName:" << "\tArrivalTime:" << "\tDuration:" << endl;
 	//first in first out
 	FIFO();
 
@@ -38,6 +42,7 @@ int main()
 
 	time = 0;
 
+	cout << "time:" << "\tName:" << "\tArrivalTime:" << "\tDuration:" << endl;
 	//shortest job first
 	SJF();
 	
@@ -46,10 +51,27 @@ int main()
 
 	time = 0;
 
+	cout << "time:" << "\tName:" << "\tArrivalTime:" << "\tDuration:" << endl;
 	//shortest time to completion
 	STCF();
 	
-	//RR();
+	cout << " " << endl;
+	cout << "RR" << endl;
+
+	time = 0;
+
+	cout << "time:" << "\tName:" << "\tArrivalTime:" << "\tDuration:" << endl;
+
+	RR(1);
+
+	cout << " " << endl;
+	cout << "RR2" << endl;
+
+	time = 0;
+
+	cout << "time:" << "\tName:" << "\tArrivalTime:" << "\tDuration:" << endl;
+
+	RR(2);
 	
 	//RR2();
 
@@ -66,7 +88,6 @@ void testInput()
 	jobsTable[4] = Job("job5", 9, 4);
 	jobsTable[5] = Job("job6", 11, 6);
 	
-
 	//Print out job names
 	for (map<int, Job>::iterator it = jobsTable.begin(); it != jobsTable.end(); ++it)
 		cout << it->first << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration <<'\n';
@@ -74,39 +95,35 @@ void testInput()
 }
 
 void FIFO()
-{
-	
+{	
 	//check if job arrives based on current time
 	for (time; time < 100; time++)
 	{
 		for (map<int, Job>::iterator it = jobsTable.begin(); it != jobsTable.end(); it++)
 		{
 			if (it->second.mArrivalTime == time)
-			{
-				cout << it->first << "  Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
+			{		
+				cout << "Arrival" << "\t" << it->second.mName << "\t" << it->second.mArrivalTime << "\t" << it->second.mDuration << '\n';		
 				FIFOQueue.push(it->second);
-			
 			}
 			else 
 			{
 			
-			}
+			}	
 		}
 		if (!FIFOQueue.empty())
 		{
 			FIFOQueue.front().mIsJobCompleted++;
-			cout << "time: "<<time << " Name: " << FIFOQueue.front().mName << " Arrival Time: " << FIFOQueue.front().mArrivalTime << " Duration: " << FIFOQueue.front().mDuration << endl;
+			cout <<time << "\t" << FIFOQueue.front().mName << "\t" << FIFOQueue.front().mArrivalTime << "\t" << FIFOQueue.front().mDuration << endl;
 			if (FIFOQueue.front().mDuration == FIFOQueue.front().mIsJobCompleted)
 			{
-				cout << "Job Completed" << endl;
-				
+				cout << "Job Completed" << endl;			
 				FIFOQueue.pop();
-
 			}
 		}
 	}
+	
 }
-
 
 void SJF()
 {
@@ -115,15 +132,12 @@ void SJF()
 		for (map<int, Job>::iterator it = jobsTable.begin(); it != jobsTable.end(); it++)
 		{
 			if (it->second.mArrivalTime == time)
-			{
-				
-				cout << it->first << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
-	
+			{		
+				//cout << it->first << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
+				cout << "Arrival" << "\t" << it->second.mName << "\t" << it->second.mArrivalTime << "\t" << it->second.mDuration << '\n';
 				SJFQueue.push_back(it->second);
-			}
-		
+			}	
 		}
-
 	
 		if (!SJFQueue.empty())
 		{
@@ -138,31 +152,32 @@ void SJF()
 				if (!SJFQueue.empty())
 				{
 					sort(SJFQueue.begin(), SJFQueue.end(), &SJFComparator);
-				}
-				
-				
+				}			
 			}
 			if (!SJFQueue.empty())
 			{
-				cout << "time: " << time << " Name: " << SJFQueue.front().mName << " Arrival Time: " << SJFQueue.front().mArrivalTime << " Duration: " << SJFQueue.front().mDuration << endl;
+				cout  << time  << "\t" << SJFQueue.front().mName << "\t" << SJFQueue.front().mArrivalTime << "\t" << SJFQueue.front().mDuration << endl;
 			}
 		}
-	
 	}
 }
 
 void STCF()
 {
-	/*
 	for (time; time < 100; time++)//seems to start at 400
 	{
 		for (map<int, Job>::iterator it = jobsTable.begin(); it != jobsTable.end(); it++)
 		{
 			if (it->second.mArrivalTime == time)
 			{
-				cout << it->first << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
+				//cout << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
+				cout << "Arrival" << "\t" << it->second.mName << "\t" << it->second.mArrivalTime << "\t" << it->second.mDuration << '\n';
 
 				SJFQueue.push_back(it->second);
+				if (!SJFQueue.empty())
+				{
+					sort(SJFQueue.begin(), SJFQueue.end(), &SJFComparator);
+				}
 			}
 		}
 		if (!SJFQueue.empty())
@@ -174,19 +189,14 @@ void STCF()
 			{
 				cout << "Job Completed" << endl;
 				SJFQueue.pop_front();
-				//cout << "time: " << time << " Name: " << SJFQueue.front().mName << " Arrival Time: " << SJFQueue.front().mArrivalTime << " Duration: " << SJFQueue.front().mDuration << endl;
-				if (!SJFQueue.empty())
-				{
-					sort(SJFQueue.begin(), SJFQueue.end(), &SJFComparator);
-				}
+				//cout << "time: " << time << " Name: " << SJFQueue.front().mName << " Arrival Time: " << SJFQueue.front().mArrivalTime << " Duration: " << SJFQueue.front().mDuration << endl;			
 			}
 			if (!SJFQueue.empty())
 			{
-				cout << "time: " << time << " Name: " << SJFQueue.front().mName << " Arrival Time: " << SJFQueue.front().mArrivalTime << " Duration: " << SJFQueue.front().mDuration << endl;
+				cout << time << "\t" << SJFQueue.front().mName << "\t" << SJFQueue.front().mArrivalTime << "\t" << SJFQueue.front().mDuration << endl;
 			}
 		}
-	}	
-	*/	
+	}		
 }
 
 bool SJFComparator(Job a, Job b)
@@ -195,17 +205,56 @@ bool SJFComparator(Job a, Job b)
 		return true;
 	}
 	return a.mDuration < b.mDuration;
-	
 }
 
-bool STCFComprator(Job x, Job y) {
-	if (x.mDuration == y.mDuration) {
-		return true;
-	}
-	return x.mDuration < y.mDuration;
-}
-
-void RR()
+void RR(int stepSize)
 {
+	int stepCounter = 0;
+	for (time; time < 100; time++)//seems to start at 400
+	{
+		for (map<int, Job>::iterator it = jobsTable.begin(); it != jobsTable.end(); it++)
+		{
+			if (it->second.mArrivalTime == time)
+			{
+				//cout << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
+				cout << "Arrival" << "\t" << it->second.mName << "\t" << it->second.mArrivalTime << "\t" << it->second.mDuration << '\n';
+				
+				RRQueue.push_back(it->second);			
+			}	
+		}	
+		//counter++;
+		
+		if (!RRQueue.empty())
+		{
+			if (stepCounter == stepSize) {
+				counter++;
+				stepCounter = 0;
+			}
+			
+			if (RRQueue.size() <= counter)
+			{
+				counter = 0;
+			}
+		
+			RRQueue.at(counter).mIsJobCompleted++;
+			stepCounter++;
 
+			if (!RRQueue.empty())
+			{
+				cout << time << "\t" << RRQueue.at(counter).mName << "\t" << RRQueue.at(counter).mArrivalTime << "\t" << RRQueue.at(counter).mDuration << endl;
+			}
+
+			if (RRQueue.at(counter).mDuration == RRQueue.at(counter).mIsJobCompleted)
+			{
+				cout << "Job Completed" << endl;
+				RRQueue.erase(RRQueue.begin() + counter);
+				counter--;
+				stepCounter = 0;
+
+			}
+			
+		}
+		
+	}
+	
 }
