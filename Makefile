@@ -6,3 +6,6 @@ $(Project_Name): $(patsubst %.cpp, %.o, $(wildcard *.cpp))
 
 %.o: %.cpp $(wildcard *.h)
 	$(Compiler) -c $<
+	
+test: $(Project_Name) JobInput.txt
+	./$(Project_Name) < JobInput.txt | tee JobOutput.txt

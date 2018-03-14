@@ -1,0 +1,6 @@
+job1 2 5
+job2 3 7
+job3 7 2
+job4 12 5
+job5 9 4
+job6 11 6

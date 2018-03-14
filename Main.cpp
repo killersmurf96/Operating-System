@@ -124,12 +124,23 @@ int main()
 
 void testInput()
 {
-	jobsTable[0] = Job("job1", 2, 5);
+	string name1 = "";
+	int arrivalTime1 = 0;
+	int inputDuration = 0;
+	int count1 = 0;
+
+	while (cin) {
+		cin >> name1 >> arrivalTime1 >> inputDuration;
+		jobsTable[count1] = (Job(name1, arrivalTime1, inputDuration));
+		count1++;
+	}
+
+	/*jobsTable[0] = Job("job1", 2, 5);
 	jobsTable[1] = Job("job2", 3, 7);
 	jobsTable[2] = Job("job3", 7, 2);
 	jobsTable[3] = Job("job4", 12, 5);
 	jobsTable[4] = Job("job5", 9, 4);
-	jobsTable[5] = Job("job6", 11, 6);
+	jobsTable[5] = Job("job6", 11, 6);*/
 	
 	//Print out job names
 	for (map<int, Job>::iterator it = jobsTable.begin(); it != jobsTable.end(); ++it)
@@ -269,9 +280,12 @@ void STCF()
 
 bool SJFComparator(Job a, Job b)
 {
+	/*
 	if (a.mDuration == b.mDuration) {
-		return true;
+	return true;
 	}
+	*/
+	
 	return a.mDuration < b.mDuration;
 }
 
