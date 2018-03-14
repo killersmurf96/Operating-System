@@ -12,7 +12,8 @@ int counter = 0;
 int totalDuration = 0;
 
 map<int, Job> jobsTable;
-map<string, pair<int,int>> CalculateMap;
+map<string, pair<int,int>> CalculateMapTurnover;
+map<string, pair<int, int>> CalculateMapResponse;
 
 queue<Job> FIFOQueue;
 deque<Job> SJFQueue;
@@ -24,6 +25,7 @@ void FIFO();
 void SJF();
 void STCF();
 void RR(int stepCount);
+void Calculate(map<string, pair<int, int>> m);
 bool SJFComparator(Job a, Job b);
 bool STCFComprator(Job x, Job y);
 
@@ -38,6 +40,14 @@ int main()
 	cout << "time:" << "\tName:" << "\tArrivalTime:" << "\tDuration:" << endl;
 	//first in first out
 	FIFO();
+	
+	cout << " Turn around "<< endl;
+	Calculate(CalculateMapTurnover);
+	CalculateMapTurnover.clear();
+
+	cout << " Response time " << endl;
+	Calculate(CalculateMapResponse);
+	CalculateMapResponse.clear();
 
 	cout << " " << endl;
 	cout << "SJF" << endl;
@@ -47,7 +57,15 @@ int main()
 	cout << "time:" << "\tName:" << "\tArrivalTime:" << "\tDuration:" << endl;
 	//shortest job first
 	SJF();
-	
+
+	cout << " Turn around " << endl;
+	Calculate(CalculateMapTurnover);
+	CalculateMapTurnover.clear();
+
+	cout << " Response time " << endl;
+	Calculate(CalculateMapResponse);
+	CalculateMapResponse.clear();
+
 	cout << " " << endl;
 	cout << "STCF" << endl;
 
@@ -56,7 +74,16 @@ int main()
 	cout << "time:" << "\tName:" << "\tArrivalTime:" << "\tDuration:" << endl;
 	//shortest time to completion
 	STCF();
-	
+
+	cout << " Turn around " << endl;
+	Calculate(CalculateMapTurnover);
+	CalculateMapTurnover.clear();
+
+	cout << " Response time " << endl;
+	Calculate(CalculateMapResponse);
+	CalculateMapResponse.clear();
+
+
 	cout << " " << endl;
 	cout << "RR" << endl;
 
@@ -66,6 +93,14 @@ int main()
 
 	RR(1);
 
+	cout << " Turn around " << endl;
+	Calculate(CalculateMapTurnover);
+	CalculateMapTurnover.clear();
+
+	cout << " Response time " << endl;
+	Calculate(CalculateMapResponse);
+	CalculateMapResponse.clear();
+
 	cout << " " << endl;
 	cout << "RR2" << endl;
 
@@ -74,6 +109,14 @@ int main()
 	cout << "time:" << "\tName:" << "\tArrivalTime:" << "\tDuration:" << endl;
 
 	RR(2);
+
+	cout << " Turn around " << endl;
+	Calculate(CalculateMapTurnover);
+	CalculateMapTurnover.clear();
+
+	cout << " Response time " << endl;
+	Calculate(CalculateMapResponse);
+	CalculateMapResponse.clear();
 	
 	//prevents console window closing instantly
 	system("pause");
@@ -108,6 +151,8 @@ void FIFO()
 			if (it->second.mArrivalTime == time1)
 			{		
 				cout << "Arrival" << "\t" << it->second.mName << "\t" << it->second.mArrivalTime << "\t" << it->second.mDuration << '\n';		
+				CalculateMapTurnover[it->second.mName].first = it->second.mArrivalTime;
+				CalculateMapResponse[it->second.mName].first = it->second.mArrivalTime;
 				FIFOQueue.push(it->second);
 			}
 			else 
@@ -119,9 +164,15 @@ void FIFO()
 		{
 			FIFOQueue.front().mIsJobCompleted++;
 			cout <<time1 << "\t" << FIFOQueue.front().mName << "\t" << FIFOQueue.front().mArrivalTime << "\t" << FIFOQueue.front().mDuration << endl;
+			
+			if (!CalculateMapResponse[FIFOQueue.front().mName].second) {
+				CalculateMapResponse[FIFOQueue.front().mName].second = (time1 != 0) ? time1 : -1;
+			}
+
 			if (FIFOQueue.front().mDuration == FIFOQueue.front().mIsJobCompleted)
 			{
-				cout << "Job Completed" << endl;			
+				CalculateMapTurnover[FIFOQueue.front().mName].second= time1;
+				cout << "Job Completed" << endl;	
 				FIFOQueue.pop();
 			}
 		}
@@ -139,6 +190,8 @@ void SJF()
 			{		
 				//cout << it->first << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
 				cout << "Arrival" << "\t" << it->second.mName << "\t" << it->second.mArrivalTime << "\t" << it->second.mDuration << '\n';
+				CalculateMapTurnover[it->second.mName].first = it->second.mArrivalTime;
+				CalculateMapResponse[it->second.mName].first = it->second.mArrivalTime;
 				SJFQueue.push_back(it->second);
 			}	
 		}
@@ -151,6 +204,7 @@ void SJF()
 			if (SJFQueue.front().mDuration == SJFQueue.front().mIsJobCompleted)
 			{
 				cout << "Job Completed" << endl;
+				CalculateMapTurnover[SJFQueue.front().mName].second = time1;
 				SJFQueue.pop_front();
 				//cout << "time: " << time << " Name: " << SJFQueue.front().mName << " Arrival Time: " << SJFQueue.front().mArrivalTime << " Duration: " << SJFQueue.front().mDuration << endl;
 				if (!SJFQueue.empty())
@@ -160,6 +214,9 @@ void SJF()
 			}
 			if (!SJFQueue.empty())
 			{
+				if (!CalculateMapResponse[SJFQueue.front().mName].second) {
+					CalculateMapResponse[SJFQueue.front().mName].second = (time1 != 0) ? time1 : -1;
+				}
 				cout  << time1  << "\t" << SJFQueue.front().mName << "\t" << SJFQueue.front().mArrivalTime << "\t" << SJFQueue.front().mDuration << endl;
 			}
 		}
@@ -176,6 +233,9 @@ void STCF()
 			{
 				//cout << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
 				cout << "Arrival" << "\t" << it->second.mName << "\t" << it->second.mArrivalTime << "\t" << it->second.mDuration << '\n';
+				
+				CalculateMapTurnover[it->second.mName].first = it->second.mArrivalTime;
+				CalculateMapResponse[it->second.mName].first = it->second.mArrivalTime;
 
 				SJFQueue.push_back(it->second);
 				if (!SJFQueue.empty())
@@ -192,11 +252,15 @@ void STCF()
 			if (SJFQueue.front().mDuration == SJFQueue.front().mIsJobCompleted)
 			{
 				cout << "Job Completed" << endl;
+				CalculateMapTurnover[SJFQueue.front().mName].second = time1;
 				SJFQueue.pop_front();
 				//cout << "time: " << time << " Name: " << SJFQueue.front().mName << " Arrival Time: " << SJFQueue.front().mArrivalTime << " Duration: " << SJFQueue.front().mDuration << endl;			
 			}
 			if (!SJFQueue.empty())
 			{
+				if (!CalculateMapResponse[SJFQueue.front().mName].second) {
+					CalculateMapResponse[SJFQueue.front().mName].second = (time1 != 0) ? time1 : -1;
+				}
 				cout << time1 << "\t" << SJFQueue.front().mName << "\t" << SJFQueue.front().mArrivalTime << "\t" << SJFQueue.front().mDuration << endl;
 			}
 		}
@@ -223,7 +287,8 @@ void RR(int stepSize)
 			{
 				//cout << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
 				cout << "Arrival" << "\t" << it->second.mName << "\t" << it->second.mArrivalTime << "\t" << it->second.mDuration << '\n';
-				
+				CalculateMapTurnover[it->second.mName].first = it->second.mArrivalTime;
+				CalculateMapResponse[it->second.mName].first = it->second.mArrivalTime;
 				RRQueue.push_back(it->second);			
 			}	
 		}	
@@ -245,18 +310,32 @@ void RR(int stepSize)
 
 			if (!RRQueue.empty())
 			{
+				if (!CalculateMapResponse[RRQueue.at(counter).mName].second) {
+					CalculateMapResponse[RRQueue.at(counter).mName].second = (time1 != 0) ? time1 : -1;
+				}
 				cout << time1 << "\t" << RRQueue.at(counter).mName << "\t" << RRQueue.at(counter).mArrivalTime << "\t" << RRQueue.at(counter).mDuration << endl;
 			}
 
 			if (RRQueue.at(counter).mDuration == RRQueue.at(counter).mIsJobCompleted)
 			{
 				cout << "Job Completed" << endl;
+				CalculateMapTurnover[RRQueue.at(counter).mName].second = time1;
 				RRQueue.erase(RRQueue.begin() + counter);
 				counter--;
 				stepCounter = 0;
 			}		
 		}	
 	}
-	
 }
 
+void Calculate(map<string, pair<int, int>> m)
+{
+	float sumTT =0, countTT =0;
+	for (map<string, pair<int, int>>::iterator it = m.begin(); it != m.end(); it++)
+	{
+		sumTT += it->second.second - it->second.first;
+		countTT++;
+		cout << it->first << ": " <<  ((it->second.second != -1) ? it->second.second : 0) - it->second.first << endl;
+	}
+	cout << "Average" << ": " << sumTT/countTT << endl;
+}
