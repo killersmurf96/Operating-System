@@ -1,9 +1,9 @@
-#pragma once
 #include "Job.hpp"
 #include<iostream>
 #include<map>
 #include <queue>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
