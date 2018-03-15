@@ -11,7 +11,7 @@ test: $(Project_Name) JobInput.txt
 	./$(Project_Name) < JobInput.txt | tee JobOutput.txt
 	
 demo1: $(Project_Name) ca1_jobs.pl
-	./$(Project_Name) < ca1_jobs | tee demo_output1.txt
+	./$(Project_Name) < ca1_jobs.pl | tee demo_output1.txt
 	
 demo2: $(Project_Name) ca1_jobs.pl
 	./$(Project_Name) < ca1_jobs.pl | tee demo_output.txt
