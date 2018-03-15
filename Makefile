@@ -10,6 +10,10 @@ $(Project_Name): $(patsubst %.cpp, %.o, $(wildcard *.cpp))
 test: $(Project_Name) JobInput.txt
 	./$(Project_Name) < JobInput.txt | tee JobOutput.txt
 	
+demo: make demo1
+	  make demo2
+	  make demo3
+	
 demo1: $(Project_Name) ca1_jobs.pl
 	./$(Project_Name) < ca1_jobs.pl | tee demo_output1.txt
 	
