@@ -18,12 +18,18 @@ demo:
 	
 demo_input.txt: 
 	$(CA1Jobs) > $@
+	
+demo_input2.txt:
+	$(CA1Jobs) > $@
+	
+demo_input3.txt:
+	$(CA1Jobs) > $@
 
 demo1:  demo_input.txt $(Project_Name)
 	./$(Project_Name) < demo_input.txt | tee demo_output1.txt
 	
-demo2:  ca1_jobs.pl $(Project_Name)
-	./$(Project_Name) < ca1_jobs.txt | tee demo_output2.txt
+demo2:  demo_input2.txt $(Project_Name)
+	./$(Project_Name) < demo_input2.txt | tee demo_output2.txt
 	
-demo3:  ca1_jobs.pl $(Project_Name)
-	./$(Project_Name) < ca1_jobs.pl | tee demo_output3.txt
+demo3:  demo_input3.txt $(Project_Name)
+	./$(Project_Name) < demo_input3.pl | tee demo_output3.txt
