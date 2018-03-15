@@ -14,7 +14,7 @@ demo: make demo1
 	  make demo2
 	  make demo3
 	
-demo_output1.txt: ca1_jobs.pl > demo_output1.txt
+demo_output1.txt: ca1_jobs.pl 7 10 5
 
 demo1:  ca1_jobs.pl $(Project_Name)
 	./$(Project_Name) < ca1_jobs.txt | tee demo_output1.txt
