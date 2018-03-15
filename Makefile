@@ -14,11 +14,11 @@ demo: make demo1
 	  make demo2
 	  make demo3
 	
-demo1:  ca1_jobs.pl $(Project_Name)
+demo1: $(Project_Name) ca1_jobs.pl 
 	./$(Project_Name) < ca1_jobs.pl | tee demo_output1.txt
 	
-demo2:  ca1_jobs.pl $(Project_Name)
+demo2: $(Project_Name) ca1_jobs.pl $(Project_Name)
 	./$(Project_Name) < ca1_jobs.pl | tee demo_output2.txt
 	
-demo3:  ca1_jobs.pl $(Project_Name)
+demo3: $(Project_Name) ca1_jobs.pl $(Project_Name)
 	./$(Project_Name) < ca1_jobs.pl | tee demo_output3.txt
