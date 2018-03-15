@@ -37,7 +37,7 @@ int main()
 	
 	cout << "FIFO" << endl;
 	
-	cout << "time:" << "\tName:" << "\tArrivalTime:" << "\tDuration:" << endl;
+	cout << "time:" << "\t\tName:" << "\t\tArrivalTime:" << "\t\tDuration:" << endl;
 	//first in first out
 	FIFO();
 	
@@ -174,7 +174,7 @@ void FIFO()
 		{
 			if (it->second.mArrivalTime == time1)
 			{		
-				cout << "Arrival" << "\t" << it->second.mName << "\t" << it->second.mArrivalTime << "\t" << it->second.mDuration << '\n';		
+				cout << "Arrival" << "\t\t" << it->second.mName << "\t\t" << it->second.mArrivalTime << "\t\t" << it->second.mDuration << '\n';		
 				CalculateMapTurnover[it->second.mName].first = it->second.mArrivalTime;
 				CalculateMapResponse[it->second.mName].first = it->second.mArrivalTime;
 				FIFOQueue.push(it->second);
@@ -187,7 +187,7 @@ void FIFO()
 		if (!FIFOQueue.empty())
 		{
 			FIFOQueue.front().mIsJobCompleted++;
-			cout <<time1 << "\t" << FIFOQueue.front().mName << "\t" << FIFOQueue.front().mArrivalTime << "\t" << FIFOQueue.front().mDuration << endl;
+			cout <<time1 << "\t\t" << FIFOQueue.front().mName << "\t\t" << FIFOQueue.front().mArrivalTime << "\t\t" << FIFOQueue.front().mDuration << endl;
 			
 			if (!CalculateMapResponse[FIFOQueue.front().mName].second) {
 				CalculateMapResponse[FIFOQueue.front().mName].second = (time1 != 0) ? time1 : -1;
