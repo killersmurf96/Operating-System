@@ -1,5 +1,6 @@
 Project_Name = simulate
 Compiler = g++
+CA1Jobs = ca1_jobs.pl 7 10 5
 
 $(Project_Name): $(patsubst %.cpp, %.o, $(wildcard *.cpp))
 	$(Compiler) -o $(Project_Name) $^
@@ -14,9 +15,9 @@ demo: make demo1
 	  make demo2
 	  make demo3
 	
-demo_output1.txt: ca1_jobs.pl 7 10 5 > $@
+demo_output1.txt: $(CA1Jobs) > $@
 
-demo1:  demo_output1.txt $(Project_Name)
+demo1:  demo_job1.txt $(Project_Name)
 	./$(Project_Name) < $@.txt | tee demo_output1.txt
 	
 demo2:  ca1_jobs.pl $(Project_Name)
