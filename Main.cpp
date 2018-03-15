@@ -41,10 +41,12 @@ int main()
 	//first in first out
 	FIFO();
 	
+	cout << " " << endl;
 	cout << " Turn around "<< endl;
 	Calculate(CalculateMapTurnover);
 	CalculateMapTurnover.clear();
-
+	
+	cout << " " << endl;
 	cout << " Response time " << endl;
 	Calculate(CalculateMapResponse);
 	CalculateMapResponse.clear();
@@ -58,10 +60,12 @@ int main()
 	//shortest job first
 	SJF();
 
+	cout << " " << endl;
 	cout << " Turn around " << endl;
 	Calculate(CalculateMapTurnover);
 	CalculateMapTurnover.clear();
 
+	cout << " " << endl;
 	cout << " Response time " << endl;
 	Calculate(CalculateMapResponse);
 	CalculateMapResponse.clear();
@@ -75,10 +79,12 @@ int main()
 	//shortest time to completion
 	STCF();
 
+	cout << " " << endl;
 	cout << " Turn around " << endl;
 	Calculate(CalculateMapTurnover);
 	CalculateMapTurnover.clear();
 
+	cout << " " << endl;
 	cout << " Response time " << endl;
 	Calculate(CalculateMapResponse);
 	CalculateMapResponse.clear();
@@ -93,10 +99,12 @@ int main()
 
 	RR(1);
 
+	cout << " " << endl;
 	cout << " Turn around " << endl;
 	Calculate(CalculateMapTurnover);
 	CalculateMapTurnover.clear();
 
+	cout << " " << endl;
 	cout << " Response time " << endl;
 	Calculate(CalculateMapResponse);
 	CalculateMapResponse.clear();
@@ -110,10 +118,12 @@ int main()
 
 	RR(2);
 
+	cout << " " << endl;
 	cout << " Turn around " << endl;
 	Calculate(CalculateMapTurnover);
 	CalculateMapTurnover.clear();
 
+	cout << " " << endl;
 	cout << " Response time " << endl;
 	Calculate(CalculateMapResponse);
 	CalculateMapResponse.clear();
