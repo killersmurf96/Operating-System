@@ -117,6 +117,9 @@ int main()
 	cout << " Response time " << endl;
 	Calculate(CalculateMapResponse);
 	CalculateMapResponse.clear();
+
+	cout << "" << endl;
+	cout << "Simulation Complete" << endl;
 	
 	//prevents console window closing instantly
 	system("pause");
