@@ -37,7 +37,7 @@ int main()
 	
 	cout << "FIFO" << endl;
 	
-	cout << "time:" << "\t\tName:" << "\t\tArrivalTime:" << "\t\tDuration:" << endl;
+	cout << "Time:" << "\t\tName:" << "\t\tArrivalTime:" << "\t\tDuration:" << endl;
 	//first in first out
 	FIFO();
 	
@@ -56,7 +56,7 @@ int main()
 
 	time1 = 0;
 
-	cout << "time:" << "\tName:" << "\tArrivalTime:" << "\tDuration:" << endl;
+	cout << "Time:" << "\t\tName:" << "\t\tArrivalTime:" << "\t\tDuration:" << endl;
 	//shortest job first
 	SJF();
 
@@ -75,7 +75,7 @@ int main()
 
 	time1 = 0;
 
-	cout << "time:" << "\tName:" << "\tArrivalTime:" << "\tDuration:" << endl;
+	cout << "Time:" << "\t\tName:" << "\t\tArrivalTime:" << "\t\tDuration:" << endl;
 	//shortest time to completion
 	STCF();
 
@@ -95,7 +95,7 @@ int main()
 
 	time1 = 0;
 
-	cout << "time:" << "\tName:" << "\tArrivalTime:" << "\tDuration:" << endl;
+	cout << "Time:" << "\t\tName:" << "\t\tArrivalTime:" << "\t\tDuration:" << endl;
 
 	RR(1);
 
@@ -114,7 +114,7 @@ int main()
 
 	time1 = 0;
 
-	cout << "time:" << "\tName:" << "\tArrivalTime:" << "\tDuration:" << endl;
+	cout << "Time:" << "\t\tName:" << "\t\tArrivalTime:" << "\t\tDuration:" << endl;
 
 	RR(2);
 
@@ -213,7 +213,7 @@ void SJF()
 			if (it->second.mArrivalTime == time1)
 			{		
 				//cout << it->first << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
-				cout << "Arrival" << "\t" << it->second.mName << "\t" << it->second.mArrivalTime << "\t" << it->second.mDuration << '\n';
+				cout << "Arrival" << "\t\t" << it->second.mName << "\t\t" << it->second.mArrivalTime << "\t\t" << it->second.mDuration << '\n';
 				CalculateMapTurnover[it->second.mName].first = it->second.mArrivalTime;
 				CalculateMapResponse[it->second.mName].first = it->second.mArrivalTime;
 				SJFQueue.push_back(it->second);
@@ -241,7 +241,7 @@ void SJF()
 				if (!CalculateMapResponse[SJFQueue.front().mName].second) {
 					CalculateMapResponse[SJFQueue.front().mName].second = (time1 != 0) ? time1 : -1;
 				}
-				cout  << time1  << "\t" << SJFQueue.front().mName << "\t" << SJFQueue.front().mArrivalTime << "\t" << SJFQueue.front().mDuration << endl;
+				cout  << time1  << "\t\t" << SJFQueue.front().mName << "\t\t" << SJFQueue.front().mArrivalTime << "\t\t" << SJFQueue.front().mDuration << endl;
 			}
 		}
 	}
@@ -256,7 +256,7 @@ void STCF()
 			if (it->second.mArrivalTime == time1)
 			{
 				//cout << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
-				cout << "Arrival" << "\t" << it->second.mName << "\t" << it->second.mArrivalTime << "\t" << it->second.mDuration << '\n';
+				cout << "Arrival" << "\t\t" << it->second.mName << "\t\t" << it->second.mArrivalTime << "\t\t" << it->second.mDuration << '\n';
 				
 				CalculateMapTurnover[it->second.mName].first = it->second.mArrivalTime;
 				CalculateMapResponse[it->second.mName].first = it->second.mArrivalTime;
@@ -285,7 +285,7 @@ void STCF()
 				if (!CalculateMapResponse[SJFQueue.front().mName].second) {
 					CalculateMapResponse[SJFQueue.front().mName].second = (time1 != 0) ? time1 : -1;
 				}
-				cout << time1 << "\t" << SJFQueue.front().mName << "\t" << SJFQueue.front().mArrivalTime << "\t" << SJFQueue.front().mDuration << endl;
+				cout << time1 << "\t\t" << SJFQueue.front().mName << "\t\t" << SJFQueue.front().mArrivalTime << "\t\t" << SJFQueue.front().mDuration << endl;
 			}
 		}
 	}		
@@ -313,7 +313,7 @@ void RR(int stepSize)
 			if (it->second.mArrivalTime == time1)
 			{
 				//cout << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
-				cout << "Arrival" << "\t" << it->second.mName << "\t" << it->second.mArrivalTime << "\t" << it->second.mDuration << '\n';
+				cout << "Arrival" << "\t\t" << it->second.mName << "\t\t" << it->second.mArrivalTime << "\t\t" << it->second.mDuration << '\n';
 				CalculateMapTurnover[it->second.mName].first = it->second.mArrivalTime;
 				CalculateMapResponse[it->second.mName].first = it->second.mArrivalTime;
 				RRQueue.push_back(it->second);			
@@ -340,7 +340,7 @@ void RR(int stepSize)
 				if (!CalculateMapResponse[RRQueue.at(counter).mName].second) {
 					CalculateMapResponse[RRQueue.at(counter).mName].second = (time1 != 0) ? time1 : -1;
 				}
-				cout << time1 << "\t" << RRQueue.at(counter).mName << "\t" << RRQueue.at(counter).mArrivalTime << "\t" << RRQueue.at(counter).mDuration << endl;
+				cout << time1 << "\t\t" << RRQueue.at(counter).mName << "\t\t" << RRQueue.at(counter).mArrivalTime << "\t\t" << RRQueue.at(counter).mDuration << endl;
 			}
 
 			if (RRQueue.at(counter).mDuration == RRQueue.at(counter).mIsJobCompleted)
