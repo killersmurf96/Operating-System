@@ -11,14 +11,16 @@ $(Project_Name): $(patsubst %.cpp, %.o, $(wildcard *.cpp))
 test: $(Project_Name) JobInput.txt
 	./$(Project_Name) < JobInput.txt | tee JobOutput.txt
 	
-demo: make demo1
-	  make demo2
-	  make demo3
+demo: 
+	make demo1
+	make demo2
+	make demo3
 	
-demo_output1.txt: $(CA1Jobs) > $@
+demo_input.txt: 
+	$(CA1Jobs) > $@
 
-demo1:  demo_job1.txt $(Project_Name)
-	./$(Project_Name) < $@.txt | tee demo_output1.txt
+demo1:  demo_input.txt $(Project_Name)
+	./$(Project_Name) < demo_input.txt | tee demo_output1.txt
 	
 demo2:  ca1_jobs.pl $(Project_Name)
 	./$(Project_Name) < ca1_jobs.txt | tee demo_output2.txt
