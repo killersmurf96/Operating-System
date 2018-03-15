@@ -32,4 +32,4 @@ demo2:  demo_input2.txt $(Project_Name)
 	./$(Project_Name) < demo_input2.txt | tee demo_output2.txt
 	
 demo3:  demo_input3.txt $(Project_Name)
-	./$(Project_Name) < demo_input3.pl | tee demo_output3.txt
+	./$(Project_Name) < demo_input3.txt | tee demo_output3.txt
