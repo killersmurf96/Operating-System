@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-// i know its bad practice but i find it much simpler using name space then using std everywhere
+// I know its bad practice but I find it much simpler using name space then using std everywhere
 using namespace std;
 
 class Job

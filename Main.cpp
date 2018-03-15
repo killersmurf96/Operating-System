@@ -18,7 +18,6 @@ map<string, pair<int, int>> CalculateMapResponse;
 queue<Job> FIFOQueue;
 deque<Job> SJFQueue;
 deque<Job> RRQueue;
-//vector<Job> SJFvec;
 
 void testInput();
 void FIFO();
@@ -148,7 +147,8 @@ void testInput()
 		count1++;
 	}
 
-	/*jobsTable[0] = Job("job1", 2, 5);
+	/* for testing in visual studio
+	jobsTable[0] = Job("job1", 2, 5);
 	jobsTable[1] = Job("job2", 3, 7);
 	jobsTable[2] = Job("job3", 7, 2);
 	jobsTable[3] = Job("job4", 12, 5);
@@ -164,12 +164,11 @@ void testInput()
 void FIFO()
 {	
 	//check if job arrives based on current time
+	//turn around time  = completion time - arrival
+	//response time = start time - arrival time
 	
 	for (time1; time1 < 100; time1++)
 	{
-		//turn around time  = completion time - arrival
-		//response time = start time - arrival time
-
 		for (map<int, Job>::iterator it = jobsTable.begin(); it != jobsTable.end(); it++)
 		{
 			if (it->second.mArrivalTime == time1)
@@ -206,13 +205,12 @@ void FIFO()
 
 void SJF()
 {
-	for (time1; time1 < 100; time1++)//seems to start at 400
+	for (time1; time1 < 100; time1++)
 	{
 		for (map<int, Job>::iterator it = jobsTable.begin(); it != jobsTable.end(); it++)
 		{
 			if (it->second.mArrivalTime == time1)
 			{		
-				//cout << it->first << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
 				cout << "Arrival" << "\t\t" << it->second.mName << "\t\t" << it->second.mArrivalTime << "\t\t\t" << it->second.mDuration << '\n';
 				CalculateMapTurnover[it->second.mName].first = it->second.mArrivalTime;
 				CalculateMapResponse[it->second.mName].first = it->second.mArrivalTime;
@@ -223,14 +221,13 @@ void SJF()
 		if (!SJFQueue.empty())
 		{
 			SJFQueue.front().mIsJobCompleted++;
-			//no values except time passed in not sure why ?
-			//cout << "time: " << time << " Name: " << SJFQueue.front().mName << " Arrival Time: " << SJFQueue.front().mArrivalTime << " Duration: " << SJFQueue.front().mDuration << endl;
+			
 			if (SJFQueue.front().mDuration == SJFQueue.front().mIsJobCompleted)
 			{
 				cout << "Job Completed" << endl;
 				CalculateMapTurnover[SJFQueue.front().mName].second = time1;
 				SJFQueue.pop_front();
-				//cout << "time: " << time << " Name: " << SJFQueue.front().mName << " Arrival Time: " << SJFQueue.front().mArrivalTime << " Duration: " << SJFQueue.front().mDuration << endl;
+				
 				if (!SJFQueue.empty())
 				{
 					sort(SJFQueue.begin(), SJFQueue.end(), &SJFComparator);
@@ -249,13 +246,12 @@ void SJF()
 
 void STCF()
 {
-	for (time1; time1 < 100; time1++)//seems to start at 400
+	for (time1; time1 < 100; time1++)
 	{
 		for (map<int, Job>::iterator it = jobsTable.begin(); it != jobsTable.end(); it++)
 		{
 			if (it->second.mArrivalTime == time1)
 			{
-				//cout << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
 				cout << "Arrival" << "\t\t" << it->second.mName << "\t\t" << it->second.mArrivalTime << "\t\t\t" << it->second.mDuration << '\n';
 				
 				CalculateMapTurnover[it->second.mName].first = it->second.mArrivalTime;
@@ -271,14 +267,12 @@ void STCF()
 		if (!SJFQueue.empty())
 		{
 			SJFQueue.front().mIsJobCompleted++;
-			//no values except time passed in not sure why ?
-			//cout << "time: " << time << " Name: " << SJFQueue.front().mName << " Arrival Time: " << SJFQueue.front().mArrivalTime << " Duration: " << SJFQueue.front().mDuration << endl;
+
 			if (SJFQueue.front().mDuration == SJFQueue.front().mIsJobCompleted)
 			{
 				cout << "Job Completed" << endl;
 				CalculateMapTurnover[SJFQueue.front().mName].second = time1;
-				SJFQueue.pop_front();
-				//cout << "time: " << time << " Name: " << SJFQueue.front().mName << " Arrival Time: " << SJFQueue.front().mArrivalTime << " Duration: " << SJFQueue.front().mDuration << endl;			
+				SJFQueue.pop_front();			
 			}
 			if (!SJFQueue.empty())
 			{
@@ -293,26 +287,23 @@ void STCF()
 
 bool SJFComparator(Job a, Job b)
 {
-	/*
+	/* for testing
 	if (a.mDuration == b.mDuration) {
 	return true;
 	}
 	*/
-	
 	return a.mDuration < b.mDuration;
 }
 
 void RR(int stepSize)
 {
-	
 	int stepCounter = 0;
-	for (time1; time1 < 100; time1++)//seems to start at 400
+	for (time1; time1 < 100; time1++)
 	{
 		for (map<int, Job>::iterator it = jobsTable.begin(); it != jobsTable.end(); it++)
 		{
 			if (it->second.mArrivalTime == time1)
 			{
-				//cout << " Name: " << it->second.mName << " ArrivalTime: " << it->second.mArrivalTime << " Duration: " << it->second.mDuration << '\n';
 				cout << "Arrival" << "\t\t" << it->second.mName << "\t\t" << it->second.mArrivalTime << "\t\t\t" << it->second.mDuration << '\n';
 				CalculateMapTurnover[it->second.mName].first = it->second.mArrivalTime;
 				CalculateMapResponse[it->second.mName].first = it->second.mArrivalTime;
