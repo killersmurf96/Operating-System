@@ -42,12 +42,12 @@ int main()
 	FIFO();
 	
 	cout << " " << endl;
-	cout << " Turn around "<< endl;
+	cout << "Turn around "<< endl;
 	Calculate(CalculateMapTurnover);
 	CalculateMapTurnover.clear();
 	
 	cout << " " << endl;
-	cout << " Response time " << endl;
+	cout << "Response time " << endl;
 	Calculate(CalculateMapResponse);
 	CalculateMapResponse.clear();
 
@@ -61,12 +61,12 @@ int main()
 	SJF();
 
 	cout << " " << endl;
-	cout << " Turn around " << endl;
+	cout << "Turn around " << endl;
 	Calculate(CalculateMapTurnover);
 	CalculateMapTurnover.clear();
 
 	cout << " " << endl;
-	cout << " Response time " << endl;
+	cout << "Response time " << endl;
 	Calculate(CalculateMapResponse);
 	CalculateMapResponse.clear();
 
@@ -80,12 +80,12 @@ int main()
 	STCF();
 
 	cout << " " << endl;
-	cout << " Turn around " << endl;
+	cout << "Turn around " << endl;
 	Calculate(CalculateMapTurnover);
 	CalculateMapTurnover.clear();
 
 	cout << " " << endl;
-	cout << " Response time " << endl;
+	cout << "Response time " << endl;
 	Calculate(CalculateMapResponse);
 	CalculateMapResponse.clear();
 
@@ -100,12 +100,12 @@ int main()
 	RR(1);
 
 	cout << " " << endl;
-	cout << " Turn around " << endl;
+	cout << "Turn around " << endl;
 	Calculate(CalculateMapTurnover);
 	CalculateMapTurnover.clear();
 
 	cout << " " << endl;
-	cout << " Response time " << endl;
+	cout << "Response time " << endl;
 	Calculate(CalculateMapResponse);
 	CalculateMapResponse.clear();
 
@@ -119,12 +119,12 @@ int main()
 	RR(2);
 
 	cout << " " << endl;
-	cout << " Turn around " << endl;
+	cout << "Turn around " << endl;
 	Calculate(CalculateMapTurnover);
 	CalculateMapTurnover.clear();
 
 	cout << " " << endl;
-	cout << " Response time " << endl;
+	cout << "Response time " << endl;
 	Calculate(CalculateMapResponse);
 	CalculateMapResponse.clear();
 
